@@ -10,7 +10,7 @@ const login = async( req, res = response )=>{
 
     try {
         //Verifcar email
-        const usuarioDB = await usuario.findOne({email});
+        const usuarioDB = await Usuario.findOne({email});
         if ( !usuarioDB ){
             return res.status(404). json({
                 ok: false,
@@ -91,8 +91,22 @@ const googleSignIn = async( req, res = response ) => {
     });
     }  
 }
+
+const renewToken = async(req, res = response ) => {
+
+    const uid = req.uid;
+
+    // Generar el TOKEN - JWT
+    const token = await generarJWT( uid );
+
+    res.json({
+        ok: true,
+        token
+    });
+}
 module.exports =
 {
     login,
-    googleSignIn
+    googleSignIn,
+    renewToken
 }
