@@ -8,7 +8,6 @@ const fileUpload = (req, res = response ) => {
 
     const tipo = req.params.tipo;
     const id = req.params.id;
-
     const tiposValidos = ['hospitales', 'medicos', 'usuarios'];
     if ( !tiposValidos.includes(tipo)){
         return res.status(400).json({
@@ -24,6 +23,7 @@ const fileUpload = (req, res = response ) => {
     
         });
       }
+      
       //Procesar la imagen
 
       const file = req.files.imagen;
@@ -78,7 +78,7 @@ const retornaImagen = ( req, res ) => {
     if ( fs.existsSync( pathImg ) ) {
         res.sendFile( pathImg );
     } else {
-        const pathImg = path.join( __dirname, `../uploads/no-img.png`);
+        const pathImg = path.join( __dirname, `../uploads/no-img.jpg`);
         res.sendFile( pathImg );
     }
 

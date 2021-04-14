@@ -3,6 +3,7 @@ const Usuario = require('../models/usuario');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 const { googleVerify } = require('../helpers/google-verify');
+const { getUsuarios } = require('./usuarios');
 
 const login = async( req, res = response )=>{
 
@@ -54,7 +55,6 @@ const googleSignIn = async( req, res = response ) => {
         
  
         const usuarioDB = await Usuario.findOne({ email });
-        console.log(usuarioDB +"hola");
          let usuario;
         
         if ( !usuarioDB ) {
@@ -99,9 +99,14 @@ const renewToken = async(req, res = response ) => {
     // Generar el TOKEN - JWT
     const token = await generarJWT( uid );
 
+    //Obtener datos de usurio
+
+    const usuario = await Usuario.findById( uid );
+
     res.json({
         ok: true,
-        token
+        token,
+        usuario
     });
 }
 module.exports =
