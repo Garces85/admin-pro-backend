@@ -8,7 +8,7 @@ const Usuario = require ('../models/usuario');
 const Hospital = require ('../models/hospital');
 const Medico = require ('../models/medico');
 
-const getTodo= async( req, res = response  ) => {
+const getTodo = async( req, res = response  ) => {
     
     const busqueda = req.params.busqueda;
     const regex = new RegExp( busqueda, 'i');
@@ -18,9 +18,9 @@ const getTodo= async( req, res = response  ) => {
     const[ usuarios, medicos, hospitales ] = await Promise.all([
         Usuario
                 .find({ nombre: regex }),
-        Hospital
-                .find({ nombre: regex }),
         Medico
+                .find({ nombre: regex }),
+        Hospital
                 .find({ nombre: regex })
     ]);
 
